@@ -27,8 +27,12 @@ const Navbar = () => {
     <div className="flex items-center px-4 gap-3 lg:gap-10 justify-between py-4 shadow-sm lg:px-32">
       {/* nav left side */}
       <div className="flex items-center justify-between px-4 py-3  bg-white">
-        <div className="flex items-center gap-4" onClick={() => setOpen(true)}>
-          <GiHamburgerMenu size={24} className="lg:hidden cursor-pointer" />
+        <div className="flex items-center gap-4">
+          <GiHamburgerMenu
+            onClick={() => setOpen(true)}
+            size={24}
+            className="lg:hidden cursor-pointer"
+          />
           <h1 className="font-bold text-xl lg:text-2xl">Digital Hive</h1>
         </div>
       </div>
@@ -39,7 +43,7 @@ const Navbar = () => {
         } transition-transform duration-300 ease-in-out lg:hidden`}
       >
         {/* Sidebar Header */}
-        <div className="flex items-center justify-between p-4 border-b shadow-sm">
+        <div className="flex items-center justify-between py-5 px-4 shadow-md">
           <h1 className="font-bold text-xl">Digital Hive</h1>
           <IoClose
             size={28}
@@ -49,24 +53,39 @@ const Navbar = () => {
         </div>
 
         {/* Sidebar Links */}
-        <div className="flex flex-col gap-4 p-6">
-          {navBarLinks.map((link, i) => (
-            <NavLink
-              key={i}
-              to={link.path}
-              onClick={() => setOpen(false)}
-              className={({ isActive }) =>
-                isActive
-                  ? "text-red-500 font-semibold text-lg"
-                  : "text-gray-700 font-medium text-lg"
-              }
-            >
-              {link.name}
-            </NavLink>
-          ))}
+        <div>
+          <div className="flex flex-col gap-4 py-4 px-6">
+            {navBarLinks.map((link, i) => (
+              <NavLink
+                key={i}
+                to={link.path}
+                onClick={() => setOpen(false)}
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-red-500 font-semibold text-lg"
+                    : "text-gray-700 font-medium text-lg"
+                }
+              >
+                {link.name}
+              </NavLink>
+            ))}
+          </div>
+          <div className="flex flex-col justify-start items-start px-2">
+            {rightNav.map((links, i) => (
+              <NavLink
+                key={i}
+                to={links.path}
+                className={
+                  "btn btn-ghost font-semibold text-lg hover:bg-red-300"
+                }
+              >
+                {links.name}
+              </NavLink>
+            ))}
+          </div>
         </div>
       </div>
-      <div className="flex flex-1 items-center bg-white border border-gray-300 rounded-full shadow-sm px-4 py-1 lg:py-2 focus-within:ring-2 focus-within:ring-green-400">
+      <div className="flex flex-1 items-center bg-white border border-gray-300 rounded-full shadow-sm px-4 py-1 lg:py-2 focus-within:ring-2 focus-within:ring-red-400">
         <svg
           className="h-5 w-5 text-gray-400"
           xmlns="http://www.w3.org/2000/svg"
@@ -94,9 +113,9 @@ const Navbar = () => {
             key={index}
             to={navLinks.path}
             className={({ isActive }) =>
-              isActive
-                ? "text-red-500 font-semibold"
-                : "text-gray-600 font-semibold"
+              `${
+                isActive ? "text-red-500" : "text-gray-600"
+              } relative font-semibold before:content-[''] before:absolute before:-bottom-1 before:left-0 before:w-0 before:h-[2px] before:bg-red-500 before:transition-all before:duration-300 hover:before:w-full`
             }
           >
             {navLinks.name}
